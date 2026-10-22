@@ -1,0 +1,14 @@
+---
+- name: S.I.E.T. College Server Check
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Display server hostname
+      ansible.builtin.debug:
+        msg: "S.I.E.T. server hostname is {{ ansible_hostname }}"
+
+    - name: Display operating system
+      ansible.builtin.debug:
+        msg: "Operating system is {{ ansible_distribution }} {{ ansible_distribution_version }}"
