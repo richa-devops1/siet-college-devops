@@ -1,0 +1,9 @@
+services:
+  siet-portal:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: siet-portal
+    ports:
+      - "8080:80"
+    restart: unless-stopped
