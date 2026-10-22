@@ -1,0 +1,14 @@
+---
+- name: S.I.E.T. College Information Setup
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Create project information file
+      ansible.builtin.copy:
+        dest: /tmp/siet-college-info.txt
+        content: |
+          S.I.E.T. College Infrastructure DevOps Project
+          Operating System: CentOS Stream 9
+          Automation Tool: Ansible
+        mode: '0644'
