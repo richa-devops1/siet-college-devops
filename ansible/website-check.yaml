@@ -1,0 +1,15 @@
+---
+- name: S.I.E.T. Website Availability Check
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Check whether the website responds
+      ansible.builtin.uri:
+        url: http://localhost:8080/
+        method: GET
+        status_code: 200
+      register: website_result
+
+    - name: Display website status
+      ansible.builtin.debug:
+        msg: "S.I.E.T. website is responding successfully!"
