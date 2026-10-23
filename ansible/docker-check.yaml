@@ -1,0 +1,13 @@
+---
+- name: S.I.E.T. Docker Status Check
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Check Docker container status
+      ansible.builtin.command: docker ps
+      register: docker_status
+      changed_when: false
+
+    - name: Display running containers
+      ansible.builtin.debug:
+        var: docker_status.stdout_lines
