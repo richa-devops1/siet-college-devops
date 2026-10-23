@@ -1,0 +1,13 @@
+---
+- name: S.I.E.T. Disk Space Check
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Check root filesystem disk usage
+      ansible.builtin.command: df -h /
+      register: disk_usage
+      changed_when: false
+
+    - name: Display disk usage
+      ansible.builtin.debug:
+        var: disk_usage.stdout_lines
