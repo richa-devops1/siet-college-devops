@@ -1,0 +1,13 @@
+---
+- name: S.I.E.T. Memory Usage Check
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Check memory usage
+      ansible.builtin.command: free -h
+      register: memory_usage
+      changed_when: false
+
+    - name: Display memory information
+      ansible.builtin.debug:
+        var: memory_usage.stdout_lines
