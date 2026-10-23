@@ -1,0 +1,37 @@
+---
+- name: S.I.E.T. College Server Monitoring
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  tasks:
+    - name: Display server hostname
+      ansible.builtin.debug:
+        msg: "Server: {{ ansible_hostname }}"
+
+    - name: Check memory usage
+      ansible.builtin.command: free -h
+      register: memory_usage
+      changed_when: false
+
+    - name: Display memory usage
+      ansible.builtin.debug:
+        var: memory_usage.stdout_lines
+
+    - name: Check disk usage
+      ansible.builtin.command: df -h /
+      register: disk_usage
+      changed_when: false
+
+    - name: Display disk usage
+      ansible.builtin.debug:
+        var: disk_usage.stdout_lines
+
+    - name: Check Docker containers
+      ansible.builtin.command: docker ps
+      register: docker_status
+      changed_when: false
+
+    - name: Display Docker status
+      ansible.builtin.debug:
+        var: docker_status.stdout_lines
