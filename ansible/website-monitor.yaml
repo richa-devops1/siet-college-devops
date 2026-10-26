@@ -1,0 +1,17 @@
+---
+- name: S.I.E.T. Website Monitoring
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Check website availability
+      ansible.builtin.uri:
+        url: http://localhost:8080/
+        method: GET
+        status_code: 200
+      register: website_status
+
+    - name: Display website monitoring result
+      ansible.builtin.debug:
+        msg: "S.I.E.T. website is UP and responding with HTTP 200."
