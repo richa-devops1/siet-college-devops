@@ -1,0 +1,3 @@
+---
+- import_playbook: server-monitor.yaml
+- import_playbook: website-monitor.yaml
