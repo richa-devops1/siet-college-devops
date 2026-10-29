@@ -26,3 +26,6 @@ jobs:
 
       - name: Validate completed
         run: echo "S.I.E.T. Bash script validation passed."
+
+      - name: Validate Docker image build
+        run: docker build -f docker/Dockerfile -t siet-portal:test .
