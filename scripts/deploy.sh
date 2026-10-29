@@ -3,20 +3,22 @@ set -e
 
 PROJECT_DIR="/root/college-devops"
 
-echo "Deploying S.I.E.T. College Portal..."
+echo "===================================="
+echo " Deploying S.I.E.T. College Portal"
+echo "===================================="
 
 cd "$PROJECT_DIR"
 
+echo "Building and starting website..."
 docker compose up -d --build
 
-echo "Checking website..."
+echo ""
+echo "Running automated website test..."
+./scripts/test-website.sh
 
-if curl -fsS http://localhost:8080/ > /dev/null; then
-    echo "SUCCESS: S.I.E.T. website is running!"
-else
-    echo "ERROR: Website health check failed."
-    exit 1
-fi
-
+echo ""
+echo "Checking container status..."
 docker compose ps
-echo "Deployment completed."
+
+echo ""
+echo "Deployment completed successfully."
