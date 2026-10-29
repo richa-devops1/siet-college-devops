@@ -1,0 +1,28 @@
+name: S.I.E.T. CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  validate-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Bash script syntax
+        run: |
+          bash -n scripts/deploy.sh
+          bash -n scripts/server-health.sh
+          bash -n scripts/website-health.sh
+          bash -n scripts/full-health-check.sh
+          bash -n scripts/test-website.sh
+
+      - name: Validate completed
+        run: echo "S.I.E.T. Bash script validation passed."
