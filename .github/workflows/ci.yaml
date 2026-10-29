@@ -29,3 +29,8 @@ jobs:
 
       - name: Validate Docker image build
         run: docker build -f docker/Dockerfile -t siet-portal:test .
+
+      - name: Test S.I.E.T. website content
+        run: |
+          grep -q "S.I.E.T." app/index.html
+          echo "S.I.E.T. website content test passed."
