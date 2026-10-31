@@ -34,3 +34,17 @@ jobs:
         run: |
           grep -q "S.I.E.T." app/index.html
           echo "S.I.E.T. website content test passed."
+      - name: Test website HTTP response
+        run: |
+          docker run -d --name siet-ci-test -p 8080:80 siet-portal:test
+          trap 'docker rm -f siet-ci-test >/dev/null 2>&1 || true' EXIT
+
+          for i in {1..10}; do
+            if curl -fsS http://localhost:8080/ -o /tmp/siet-test.html; then
+              break
+            fi
+            sleep 2
+          done
+
+          grep -q "S.I.E.T." /tmp/siet-test.html
+          echo "S.I.E.T. HTTP website test passed."
