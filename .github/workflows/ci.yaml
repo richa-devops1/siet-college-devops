@@ -59,7 +59,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy S.I.E.T. website
-        run: docker compose up -d --build
+        run: |
+          docker rm -f siet-portal || true
+          docker compose up -d --build
+
 
       - name: Verify website deployment
         run: |
