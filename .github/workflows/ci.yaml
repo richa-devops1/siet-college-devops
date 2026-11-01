@@ -48,3 +48,26 @@ jobs:
 
           grep -q "S.I.E.T." /tmp/siet-test.html
           echo "S.I.E.T. HTTP website test passed."
+
+  deploy-to-centos:
+    needs: validate-scripts
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy S.I.E.T. website
+        run: docker compose up -d --build
+
+      - name: Verify website deployment
+        run: |
+          for i in {1..10}; do
+            if curl -fsS http://localhost:8080/ -o /tmp/siet-deploy.html; then
+              break
+            fi
+            sleep 3
+          done
+          grep -q "S.I.E.T." /tmp/siet-deploy.html
+          echo "S.I.E.T. deployment successful."
