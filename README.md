@@ -89,6 +89,33 @@ Current Status
 - GitHub Actions CI checks passed.
 - Automatic deployment to the CentOS VM tested successfully.
 
+##  HTTPS Configuration (SSL)
+
+HTTPS was configured for the S.I.E.T. college website using a self-signed SSL certificate.
+
+### Implementation
+
+- Generated a self-signed SSL certificate using OpenSSL.
+- Configured Nginx to support HTTPS using TLS 1.2 and TLS 1.3.
+- Configured HTTP traffic to redirect automatically to HTTPS.
+- Updated Docker Compose to expose port 8443 for HTTPS.
+- Mounted SSL certificate files into the Nginx container.
+- Updated the Docker health check to verify HTTPS availability.
+- Added the private key to `.gitignore` to prevent it from being committed to GitHub.
+
+### Access URLs
+
+- HTTP: `http://localhost:8080`
+- HTTPS: `https://localhost:8443`
+
+### Verification
+
+- HTTPS returns HTTP 200 OK.
+- HTTP redirects with HTTP 301 Moved Permanently.
+- Docker container health status: Healthy.
+
+**Note:** A self-signed certificate is used for local testing. Browsers may display a security warning because the certificate is not issued by a trusted Certificate Authority.
+
 Future Improvements
 
 - Add centralized monitoring and dashboards.
