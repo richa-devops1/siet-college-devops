@@ -1,3 +1,7 @@
 .env
 *.log
 secrets/
+
+# SSL private keys
+ docker/ssl/*.key
+docker/ssl/*.key
