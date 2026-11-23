@@ -63,14 +63,13 @@ jobs:
           docker rm -f siet-portal || true
           docker compose up -d --build
 
-
       - name: Verify website deployment
         run: |
           for i in {1..10}; do
-            if curl -fsS http://localhost:8080/ -o /tmp/siet-deploy.html; then
+            if curl -kfsS https://localhost:8443/ -o /tmp/siet-deploy.html; then
               break
             fi
             sleep 3
           done
           grep -q "S.I.E.T." /tmp/siet-deploy.html
-          echo "S.I.E.T. deployment successful."
+          echo "S.I.E.T. HTTPS deployment successful."
